@@ -1,0 +1,19 @@
+name: Upstream Sync
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 每天凌晨 2 点自动同步（可改）
+  workflow_dispatch:     # 允许手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Sync with upstream
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.1
+        with:
+          github_token: ${{ secrets.GH_PAT }}           # 使用你创建的个人访问令牌
+          upstream_repository: LibreSpark/LibreTV       # 上游仓库
+          upstream_branch: main                         # 上游分支
+          target_branch: main                           # 你的分支
